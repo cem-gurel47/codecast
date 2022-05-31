@@ -1,13 +1,19 @@
 import { IconButton, Icon } from "@chakra-ui/react";
 import { IoIosRepeat } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+import { toggleRepeat } from "../../../store/slices/playerSlice";
 
-const RepeatButton = ({ setIsRepeating, isRepeating }) => {
+const RepeatButton = () => {
+  const dispatch = useDispatch();
+  const { isRepeating } = useSelector((state: RootState) => state.playerSlice);
+
   return (
     <IconButton
       display="flex"
       ml={4}
       alignItems="center"
-      onClick={() => setIsRepeating(!isRepeating)}
+      onClick={() => dispatch(toggleRepeat())}
       variant="unstyled"
       aria-label="shuffle"
       icon={

@@ -1,13 +1,19 @@
 import { IconButton, Icon } from "@chakra-ui/react";
 import { IoIosShuffle } from "react-icons/io";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../store/store";
+import { toggleShuffle } from "../../../store/slices/playerSlice";
 
-const ShuffleButton = ({ setIsShuffling, isShuffling }) => {
+const ShuffleButton = () => {
+  const dispatch = useDispatch();
+  const { isShuffling } = useSelector((state: RootState) => state.playerSlice);
+
   return (
     <IconButton
       mr={4}
       display="flex"
       alignItems="center"
-      onClick={() => setIsShuffling(!isShuffling)}
+      onClick={() => dispatch(toggleShuffle())}
       variant="unstyled"
       aria-label="shuffle"
       icon={

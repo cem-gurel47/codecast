@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Flex, Box, Text, Image } from "@chakra-ui/react";
 import PlayPouseButton from "./playPouseButton";
 import ShuffleButton from "./shuffleButton";
@@ -7,10 +6,6 @@ import PrevNextButton from "./prevNextButton";
 import Slider from "./slider";
 
 const Player = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isShuffling, setIsShuffling] = useState(false);
-  const [isRepeating, setIsRepeating] = useState(false);
-
   return (
     <Flex
       height={20}
@@ -39,19 +34,13 @@ const Player = () => {
       </Flex>
       <Flex flexDirection="column" align="center">
         <Flex>
-          <ShuffleButton
-            isShuffling={isShuffling}
-            setIsShuffling={setIsShuffling}
-          />
+          <ShuffleButton />
           <PrevNextButton type="prev" />
-          <PlayPouseButton isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
+          <PlayPouseButton />
           <PrevNextButton type="next" />
-          <RepeatButton
-            isRepeating={isRepeating}
-            setIsRepeating={setIsRepeating}
-          />
+          <RepeatButton />
         </Flex>
-        <Slider isPlaying={isPlaying} />
+        <Slider />
       </Flex>
     </Flex>
   );

@@ -1,11 +1,16 @@
 import { IconButton } from "@chakra-ui/react";
 import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../store/store";
+import { togglePlay } from "../../../store/slices/playerSlice";
 
-const PlayPouseButton = ({ isPlaying, setIsPlaying }) => {
+const PlayPouseButton = () => {
+  const dispatch = useDispatch();
+  const { isPlaying } = useSelector((state: RootState) => state.playerSlice);
   return (
     <IconButton
       mx={4}
-      onClick={() => setIsPlaying(!isPlaying)}
+      onClick={() => dispatch(togglePlay())}
       variant="unstyled"
       aria-label="play-podcast"
       icon={
