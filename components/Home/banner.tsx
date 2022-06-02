@@ -2,18 +2,31 @@ import React from "react";
 import { Box, Icon, Text, Button, Flex, IconButton } from "@chakra-ui/react";
 import { MdFavoriteBorder, MdOutlineShare } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { setAudioUrl, startPlaying } from "../../store/slices/playerSlice";
+import {
+  setAudioUrl,
+  startPlaying,
+  setPodcastName,
+  setPodcastPictureUrl,
+  setTitle,
+  setId,
+} from "../../store/slices/playerSlice";
+import Podcast from "../../types/podcast";
 
-const Banner = () => {
+const Banner = ({
+  hottestPodcastOfTheWeek,
+}: {
+  hottestPodcastOfTheWeek: Podcast;
+}) => {
   const dispatch = useDispatch();
   const playHottesPodcastOfTheWeek = () => {
-    dispatch(
-      setAudioUrl(
-        "https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg"
-      )
-    );
+    dispatch(setAudioUrl(hottestPodcastOfTheWeek.audio));
     dispatch(startPlaying());
+    dispatch(setPodcastName(hottestPodcastOfTheWeek.podcast.title_original));
+    dispatch(setPodcastPictureUrl(hottestPodcastOfTheWeek.image));
+    dispatch(setTitle(hottestPodcastOfTheWeek.title_original));
+    dispatch(setId(hottestPodcastOfTheWeek.id));
   };
+
   return (
     <Box mt={8} maxW={{ md: "3xl" }}>
       <Text

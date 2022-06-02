@@ -1,15 +1,16 @@
 import { Box } from "@chakra-ui/react";
 import Head from "next/head";
-import { Client } from "podcast-api";
 import {
   SearchInput,
   Banner,
   LatestReleases,
   RecommendedPodcasts,
 } from "../components/Home";
+import Podcast from "../types/podcast";
 
-const Home = (props) => {
-  console.log(props);
+const Home = ({ data }: { data: Podcast[] }) => {
+  console.log(data);
+
   return (
     <Box
       w="full"
@@ -28,7 +29,7 @@ const Home = (props) => {
         />
       </Head>
       <SearchInput />
-      <Banner />
+      <Banner hottestPodcastOfTheWeek={data[0]} />
       <LatestReleases />
       <RecommendedPodcasts />
     </Box>
@@ -36,24 +37,11 @@ const Home = (props) => {
 };
 
 export async function getServerSideProps() {
-  const client = Client({ apiKey: "535fd86327e443ff8fad6e261564e08c" });
-  const res = await client.search({
-    q: "javascript",
-    sort_by_date: 0,
-    type: "episode",
-    offset: 0,
-    len_min: 10,
-    len_max: 30,
-    published_before: 1580172454000,
-    published_after: 0,
-    only_in: "title,description",
-    language: "English",
-    safe_mode: 0,
-  });
-
+  const res = await fetch("http://localhost:3000/api/home");
+  const data = await res.json();
   return {
     props: {
-      data: res.data.results,
+      data,
     },
   };
 }

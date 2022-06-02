@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 
 const PodcastInfoContainer = () => {
-  const { podcastPictureUrl, artist, title } = useSelector(
+  const { podcastPictureUrl, podcast, title } = useSelector(
     (state: RootState) => state.playerSlice
   );
 
@@ -34,7 +34,7 @@ const PodcastInfoContainer = () => {
             textDecoration: "underline",
           }}
         >
-          {artist}
+          {podcast}
         </Text>
       </Box>
     </Flex>

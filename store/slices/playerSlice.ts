@@ -6,7 +6,7 @@ export interface PlayerState {
   isShuffling: boolean;
   isRepeating: boolean;
   audioUrl: string;
-  artist: string;
+  podcast: string;
   title: string;
   podcastPictureUrl: string;
   volume: number;
@@ -18,9 +18,9 @@ const initialState: PlayerState = {
   isShuffling: false,
   isRepeating: false,
   audioUrl: "",
-  artist: "Podcast Name Here",
-  title: "Artist Name Here",
-  podcastPictureUrl: "https://picsum.photos/200",
+  podcast: "",
+  title: "",
+  podcastPictureUrl: "",
   volume: 100,
 };
 
@@ -49,6 +49,18 @@ export const playerSlice = createSlice({
     changeVolume: (state, action: PayloadAction<number>) => {
       state.volume = action.payload;
     },
+    setPodcastName: (state, action: PayloadAction<string>) => {
+      state.podcast = action.payload;
+    },
+    setPodcastPictureUrl: (state, action: PayloadAction<string>) => {
+      state.podcastPictureUrl = action.payload;
+    },
+    setTitle: (state, action: PayloadAction<string>) => {
+      state.title = action.payload;
+    },
+    setId: (state, action: PayloadAction<string>) => {
+      state.id = action.payload;
+    },
   },
 });
 
@@ -60,6 +72,10 @@ export const {
   togglePlay,
   setAudioUrl,
   changeVolume,
+  setPodcastName,
+  setPodcastPictureUrl,
+  setTitle,
+  setId,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;
