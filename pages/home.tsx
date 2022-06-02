@@ -8,7 +8,14 @@ import {
 } from "../components/Home";
 import Podcast from "../types/podcast";
 
-const Home = ({ data }: { data: Podcast[] }) => {
+const Home = ({
+  data,
+}: {
+  data: {
+    data: Podcast[];
+    bestPodcasts: Podcast[];
+  };
+}) => {
   return (
     <Box
       w="full"
@@ -27,9 +34,11 @@ const Home = ({ data }: { data: Podcast[] }) => {
         />
       </Head>
       <SearchInput />
-      <Banner hottestPodcastOfTheWeek={data[0]} />
-      <LatestReleases latestReleases={data.slice(1, 7)} />
-      <RecommendedPodcasts />
+      <Banner hottestPodcastOfTheWeek={data.data[0]} />
+      <LatestReleases latestReleases={data.data.slice(1, 7)} />
+      <RecommendedPodcasts
+        recommendedPodcasts={data.bestPodcasts.slice(0, 5)}
+      />
     </Box>
   );
 };

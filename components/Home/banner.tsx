@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Icon, Text, Button, Flex, IconButton } from "@chakra-ui/react";
 import { MdFavoriteBorder, MdOutlineShare } from "react-icons/md";
 import { useDispatch } from "react-redux";
+import Cookie from "js-cookie";
 import { updatePodcast } from "../../store/slices/playerSlice";
 import Podcast from "../../types/podcast";
 
@@ -11,9 +12,21 @@ const Banner = ({
   hottestPodcastOfTheWeek: Podcast;
 }) => {
   const dispatch = useDispatch();
-  const { audio, title_original, image, podcast, id } = hottestPodcastOfTheWeek;
+  const { audio, title_original, image, podcast, id, audio_length_sec } =
+    hottestPodcastOfTheWeek;
 
   const playHottesPodcastOfTheWeek = () => {
+    Cookie.set(
+      "audio",
+      JSON.stringify({
+        audio,
+        title_original,
+        image,
+        podcast,
+        id,
+        audio_length_sec,
+      })
+    );
     dispatch(
       updatePodcast({
         audio,
@@ -21,6 +34,7 @@ const Banner = ({
         image,
         podcast,
         id,
+        audio_length_sec,
       })
     );
   };
@@ -36,7 +50,8 @@ const Banner = ({
         The hottest coding podcasts of the week.
       </Text>
       <Text color="white" my={8} fontSize="xl" fontWeight="thin">
-        Fresh music vibes for great mood full your day with energy and passion!
+        Fresh coding vibes for great mood to fill your day with energy and
+        passion!
       </Text>
       <Flex>
         <Button

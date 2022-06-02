@@ -1,30 +1,34 @@
 import { useEffect } from "react";
 import { Box } from "@chakra-ui/layout";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Cookie from "js-cookie";
 import Sidebar from "./Sidebar";
 import Content from "./Content";
 import Player from "./Player";
+import { updatePodcast, stopPlaying } from "../../store/slices/playerSlice";
 import { RootState } from "../../store/store";
-import { setAudioUrl } from "../../store/slices/playerSlice";
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
-  const { audioUrl } = useSelector((state: RootState) => state.playerSlice);
+  const { audioUrl, podcastPictureUrl, podcast, title } = useSelector(
+    (state: RootState) => state.playerSlice
+  );
+  const everyDataReadyForAudioPlayer =
+    audioUrl && podcastPictureUrl && podcast && title;
 
   useEffect(() => {
-    if (audioUrl && Cookie.get("audioUrl") !== audioUrl) {
-      Cookie.set("audioUrl", audioUrl);
-    } else if (Cookie.get("audioUrl")) {
-      dispatch(setAudioUrl(Cookie.get("audioUrl")));
+    const cookieState = Cookie.get("audio");
+    if (cookieState) {
+      dispatch(updatePodcast(JSON.parse(cookieState)));
+      dispatch(stopPlaying());
     }
-  }, [audioUrl, dispatch]);
+  }, [dispatch]);
 
   return (
     <Box width="100vw" height="100vh">
       <Sidebar />
       <Content>{children}</Content>
-      <Player />
+      {everyDataReadyForAudioPlayer && <Player />}
     </Box>
   );
 };

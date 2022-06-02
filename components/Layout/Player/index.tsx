@@ -9,6 +9,7 @@ const Player = () => {
   const { podcast, podcastPictureUrl, title } = useSelector(
     (state: RootState) => state.playerSlice
   );
+
   return (
     <Grid
       templateColumns={{ base: "repeat(1,1fr)", md: "repeat(3, 1fr)" }}

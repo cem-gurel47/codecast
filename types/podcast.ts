@@ -13,4 +13,11 @@ type Podcast = {
   };
 };
 
+export type BestPodcast = {
+  id: string;
+  image: string;
+  title_original: string;
+  description_original: string;
+};
+
 export default Podcast;

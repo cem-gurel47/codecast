@@ -18,5 +18,12 @@ export default async function handler(
     language: "English",
     safe_mode: 0,
   });
-  res.status(200).send(result.data.results);
+  const bestPodcasts = await client.fetchBestPodcasts({
+    genre_id: 143,
+    sort: "listen_score",
+  });
+  res.status(200).send({
+    data: result.data.results,
+    bestPodcasts: bestPodcasts.data.podcasts,
+  });
 }

@@ -8,8 +8,9 @@ import {
   stopPlaying,
   setAudioUrl,
 } from "../../store/slices/playerSlice";
+import { BestPodcast } from "../../types/podcast";
 
-const RecommendedPodcastCard = () => {
+const RecommendedPodcastCard = ({ info }: { info: BestPodcast }) => {
   const dispatch = useDispatch();
   const src = "";
   const { isPlaying } = useSelector((state: RootState) => state.playerSlice);
@@ -23,7 +24,7 @@ const RecommendedPodcastCard = () => {
       position="relative"
     >
       <Image
-        src="https://picsum.photos/200"
+        src={info.image}
         alt="recommended-podcast"
         width="200px"
         height="200px"

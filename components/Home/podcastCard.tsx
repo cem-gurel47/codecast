@@ -3,6 +3,7 @@ import { Flex, IconButton, Icon, Text } from "@chakra-ui/react";
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
+import Cookie from "js-cookie";
 import { RootState } from "../../store/store";
 import { stopPlaying, updatePodcast } from "../../store/slices/playerSlice";
 import PodcastInfoContainer from "../Layout/Player/podcastInfoContainer";
@@ -43,6 +44,17 @@ const PodcastCard = ({ podcast }: { podcast: Podcast }) => {
             icon={<Icon as={BsFillPlayFill} fontSize="40px" />}
             onClick={() => {
               dispatch(updatePodcast(podcast));
+              Cookie.set(
+                "audio",
+                JSON.stringify({
+                  audio: podcast.audio,
+                  title_original: podcast.title_original,
+                  image: podcast.image,
+                  podcast: podcast.podcast,
+                  id: podcast.id,
+                  audio_length_sec: podcast.audio_length_sec,
+                })
+              );
             }}
           />
         )}

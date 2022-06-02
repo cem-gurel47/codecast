@@ -11,6 +11,8 @@ export interface PlayerState {
   title: string;
   podcastPictureUrl: string;
   volume: number;
+  currentTime: number;
+  duration: number;
 }
 
 const initialState: PlayerState = {
@@ -23,6 +25,8 @@ const initialState: PlayerState = {
   title: "",
   podcastPictureUrl: "",
   volume: 100,
+  currentTime: 0,
+  duration: 0,
 };
 
 export const playerSlice = createSlice({
@@ -68,7 +72,12 @@ export const playerSlice = createSlice({
       state.podcast = action.payload.podcast.title_original;
       state.podcastPictureUrl = action.payload.image;
       state.audioUrl = action.payload.audio;
+      state.duration = action.payload.audio_length_sec;
+      state.currentTime = 0;
       state.isPlaying = true;
+    },
+    setCurrentTime: (state, action: PayloadAction<number>) => {
+      state.currentTime = action.payload;
     },
   },
 });
@@ -86,6 +95,7 @@ export const {
   setTitle,
   setId,
   updatePodcast,
+  setCurrentTime,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;
