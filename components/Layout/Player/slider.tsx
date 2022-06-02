@@ -15,7 +15,9 @@ import { stopPlaying } from "../../../store/slices/playerSlice";
 
 const SliderComponent = () => {
   const dispatch = useDispatch();
-  const { isPlaying } = useSelector((state: RootState) => state.playerSlice);
+  const { isPlaying, isRepeating, audioUrl, volume } = useSelector(
+    (state: RootState) => state.playerSlice
+  );
   const audioRef = useRef(typeof window !== "undefined" && new Audio());
   const [sliderValue, setSliderValue] = useState(0);
   const [showTooltip, setShowTooltip] = useState(false);
@@ -34,13 +36,21 @@ const SliderComponent = () => {
           setSliderValue((sliderVal) => sliderVal + 1);
         } else {
           setSliderValue(max);
-          dispatch(stopPlaying());
+          if (!isRepeating) {
+            dispatch(stopPlaying());
+          }
         }
       }
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [dispatch, isPlaying, max, sliderValue]);
+  }, [dispatch, isPlaying, isRepeating, max, sliderValue]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume / 100;
+    }
+  }, [volume]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -53,8 +63,16 @@ const SliderComponent = () => {
   }, [isPlaying]);
 
   useEffect(() => {
-    setMax(audioRef.current.duration);
-  }, [audioRef.current.duration]);
+    if (audioRef.current) {
+      audioRef.current.loop = isRepeating;
+    }
+  }, [isRepeating]);
+
+  useEffect(() => {
+    if (audioRef.current && audioRef.current.duration) {
+      setMax(audioRef.current.duration);
+    }
+  }, [audioRef.current.duration, audioUrl]);
 
   useEffect(() => {
     if (sliderValue === max) {
@@ -63,8 +81,17 @@ const SliderComponent = () => {
     }
   }, [sliderValue, max]);
 
+  const sliderThumb = () => {
+    return (
+      <SliderThumb boxSize={6}>
+        <Box color="blue.300" as={MdGraphicEq} />
+      </SliderThumb>
+    );
+  };
+
   return (
     <Slider
+      minW="160px"
       aria-label="player"
       value={sliderValue}
       onChange={(v) => {
@@ -78,9 +105,8 @@ const SliderComponent = () => {
       <SliderTrack bg="primary">
         <SliderFilledTrack bg="blue.300" />
       </SliderTrack>
-      <SliderThumb boxSize={6}>
-        <Box color="tomato" as={MdGraphicEq} />
-      </SliderThumb>
+      {sliderThumb()}
+
       <Tooltip
         hasArrow
         bg="teal.500"
@@ -89,15 +115,9 @@ const SliderComponent = () => {
         isOpen={showTooltip}
         label={convertAudioTimeToMinutesAndSeconds(sliderValue)}
       >
-        <SliderThumb boxSize={6}>
-          <Box color="tomato" as={MdGraphicEq} />
-        </SliderThumb>
+        {sliderThumb()}
       </Tooltip>
-      <audio
-        preload="metadata"
-        src="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg"
-        ref={audioRef}
-      />
+      <audio preload="metadata" src={audioUrl} ref={audioRef} />
     </Slider>
   );
 };

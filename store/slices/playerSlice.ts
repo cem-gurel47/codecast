@@ -1,15 +1,25 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface PlayerState {
   isPlaying: boolean;
   isShuffling: boolean;
   isRepeating: boolean;
+  audioUrl: string;
+  artist: string;
+  title: string;
+  podcastPictureUrl: string;
+  volume: number;
 }
 
 const initialState: PlayerState = {
   isPlaying: false,
   isShuffling: false,
   isRepeating: false,
+  audioUrl: "",
+  artist: "Podcast Name Here",
+  title: "Artist Name Here",
+  podcastPictureUrl: "https://picsum.photos/200",
+  volume: 100,
 };
 
 export const playerSlice = createSlice({
@@ -31,6 +41,12 @@ export const playerSlice = createSlice({
     togglePlay: (state) => {
       state.isPlaying = !state.isPlaying;
     },
+    setAudioUrl: (state, action: PayloadAction<string>) => {
+      state.audioUrl = action.payload;
+    },
+    changeVolume: (state, action: PayloadAction<number>) => {
+      state.volume = action.payload;
+    },
   },
 });
 
@@ -40,6 +56,8 @@ export const {
   toggleRepeat,
   toggleShuffle,
   togglePlay,
+  setAudioUrl,
+  changeVolume,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

@@ -1,5 +1,6 @@
 import { ReactText } from "react";
 import { IconType } from "react-icons";
+import { useRouter } from "next/router";
 import { FlexProps, Link, Flex, Icon } from "@chakra-ui/react";
 
 interface NavItemProps extends FlexProps {
@@ -8,6 +9,8 @@ interface NavItemProps extends FlexProps {
   path: string;
 }
 const NavItem = ({ icon, path, children, ...rest }: NavItemProps) => {
+  const router = useRouter();
+  const isActive = router.pathname === `/${path}`;
   return (
     <Link
       href={`/${path}`}
@@ -26,6 +29,15 @@ const NavItem = ({ icon, path, children, ...rest }: NavItemProps) => {
           color: "white",
           transition: "0.3s ease-in-out",
         }}
+        sx={
+          isActive
+            ? {
+                bg: "blue.300",
+                color: "white",
+                transition: "0.3s ease-in-out",
+              }
+            : {}
+        }
         color="gray.300"
         {...rest}
       >

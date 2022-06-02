@@ -1,14 +1,15 @@
-import { Flex, Box, Text, Image } from "@chakra-ui/react";
-import PlayPouseButton from "./playPouseButton";
-import ShuffleButton from "./shuffleButton";
-import RepeatButton from "./repeatButton";
-import PrevNextButton from "./prevNextButton";
-import Slider from "./slider";
+import { Grid, GridItem, Flex } from "@chakra-ui/react";
+import PodcastInfoContainer from "./podcastInfoContainer";
+import AudioInfoContainer from "./audioInfoContainer";
+import VolumeSlider from "./soundSlider";
 
 const Player = () => {
   return (
-    <Flex
-      height={20}
+    <Grid
+      templateColumns={{ base: "repeat(1,1fr)", md: "repeat(3, 1fr)" }}
+      // templateRows={{ base: "repeat(3,1fr)", md: "repeat(1,1fr)" }}
+      gap={6}
+      height={{ base: 20, md: 20 }}
       w="100vw"
       backdropFilter="blur(10px)"
       position="fixed"
@@ -16,33 +17,19 @@ const Player = () => {
       left="0"
       bgImage="linear-gradient(rgba(255, 255, 255, 0.1),rgba(255, 255, 255))"
       px={8}
-      align="center"
-      justify="space-between"
     >
-      <Flex maxW={80} align="center">
-        <Image
-          src="Logo.png"
-          width="50px"
-          height="50px"
-          alt="avatar"
-          fit="cover"
-        />
-        <Box ml={10}>
-          <Text fontWeight="bold">Podcast Name</Text>
-          <Text>Artist</Text>
-        </Box>
-      </Flex>
-      <Flex flexDirection="column" align="center">
-        <Flex>
-          <ShuffleButton />
-          <PrevNextButton type="prev" />
-          <PlayPouseButton />
-          <PrevNextButton type="next" />
-          <RepeatButton />
+      <GridItem alignSelf="center" display={{ base: "none", md: "grid" }}>
+        <PodcastInfoContainer />
+      </GridItem>
+      <GridItem alignSelf="center">
+        <AudioInfoContainer />
+      </GridItem>
+      <GridItem alignSelf="center" display={{ base: "none", md: "grid" }}>
+        <Flex justify="center">
+          <VolumeSlider />
         </Flex>
-        <Slider />
-      </Flex>
-    </Flex>
+      </GridItem>
+    </Grid>
   );
 };
 

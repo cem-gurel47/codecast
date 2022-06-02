@@ -13,6 +13,8 @@ import {
   FiStar,
   FiSettings,
 } from "react-icons/fi";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
 import Logo from "../../Logo";
 import NavItem from "./navItem";
 
@@ -34,14 +36,15 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+  const { audioUrl } = useSelector((state: RootState) => state.playerSlice);
   return (
     <Box
       bg={useColorModeValue("primary", "gray.900")}
       //   borderRight="1px"
       //   borderRightColor={useColorModeValue("gray.200", "gray.700")}
-      w={{ base: "full", md: 80 }}
+      w={{ base: "full", md: 64, lg: 80 }}
       pos="fixed"
-      h="calc(100vh - 80px)"
+      h={{ base: "full", md: audioUrl ? "calc(100vh - 80px)" : "100%" }}
       {...rest}
     >
       <Flex

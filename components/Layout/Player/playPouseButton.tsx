@@ -10,7 +10,9 @@ const PlayPouseButton = () => {
   return (
     <IconButton
       mx={4}
-      onClick={() => dispatch(togglePlay())}
+      onClick={() => {
+        dispatch(togglePlay());
+      }}
       variant="unstyled"
       aria-label="play-podcast"
       icon={
