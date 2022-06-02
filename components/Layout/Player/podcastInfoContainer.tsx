@@ -1,12 +1,14 @@
 import { Flex, Box, Text, Image } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
 
-const PodcastInfoContainer = () => {
-  const { podcastPictureUrl, podcast, title } = useSelector(
-    (state: RootState) => state.playerSlice
-  );
-
+const PodcastInfoContainer = ({
+  podcastPictureUrl,
+  podcast,
+  title,
+}: {
+  podcastPictureUrl: string;
+  podcast: string;
+  title: string;
+}) => {
   return (
     <Flex maxW={{ base: "full", md: 80 }} align="center">
       <Image
@@ -17,25 +19,10 @@ const PodcastInfoContainer = () => {
         fit="cover"
       />
       <Box ml={{ base: 2, md: 2, lg: 10 }}>
-        <Text
-          fontWeight="bold"
-          noOfLines={1}
-          cursor="pointer"
-          _hover={{
-            textDecoration: "underline",
-          }}
-        >
+        <Text fontWeight="bold" noOfLines={1}>
           {title}
         </Text>
-        <Text
-          noOfLines={1}
-          cursor="pointer"
-          _hover={{
-            textDecoration: "underline",
-          }}
-        >
-          {podcast}
-        </Text>
+        <Text noOfLines={1}>{podcast}</Text>
       </Box>
     </Flex>
   );

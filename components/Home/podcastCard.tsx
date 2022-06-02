@@ -4,18 +4,17 @@ import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/store";
-import {
-  startPlaying,
-  stopPlaying,
-  setAudioUrl,
-} from "../../store/slices/playerSlice";
+import { stopPlaying, updatePodcast } from "../../store/slices/playerSlice";
 import PodcastInfoContainer from "../Layout/Player/podcastInfoContainer";
+import Podcast from "../../types/podcast";
+import convertAudioTimeToMinutesAndSeconds from "../../utils/convertAudioTimeToMinutesAndSeconds";
 
-const PodcastCard = () => {
+const PodcastCard = ({ podcast }: { podcast: Podcast }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const dispatch = useDispatch();
-  const src = "";
-  const { isPlaying } = useSelector((state: RootState) => state.playerSlice);
+  const { isPlaying, id } = useSelector(
+    (state: RootState) => state.playerSlice
+  );
 
   return (
     <Flex
@@ -26,7 +25,7 @@ const PodcastCard = () => {
       justifyContent="space-between"
     >
       <Flex align="center">
-        {isPlaying ? (
+        {isPlaying && id === podcast.id ? (
           <IconButton
             mr={4}
             justifyContent="center"
@@ -43,15 +42,20 @@ const PodcastCard = () => {
             aria-label="play"
             icon={<Icon as={BsFillPlayFill} fontSize="40px" />}
             onClick={() => {
-              dispatch(startPlaying());
-              dispatch(setAudioUrl(src));
+              dispatch(updatePodcast(podcast));
             }}
           />
         )}
-        <PodcastInfoContainer />
+        <PodcastInfoContainer
+          podcast={podcast.podcast.title_original}
+          podcastPictureUrl={podcast.image}
+          title={podcast.title_original}
+        />
       </Flex>
       <Flex align="center">
-        <Text ml={20}>3:44</Text>
+        <Text ml={20}>
+          {convertAudioTimeToMinutesAndSeconds(podcast.audio_length_sec)}
+        </Text>
         <IconButton
           onClick={() => setIsFavorite(!isFavorite)}
           aria-label="add-to-favourites"

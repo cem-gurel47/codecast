@@ -12,6 +12,7 @@ import { MdGraphicEq } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { stopPlaying } from "../../../store/slices/playerSlice";
+import convertAudioTimeToMinutesAndSeconds from "../../../utils/convertAudioTimeToMinutesAndSeconds";
 
 const SliderComponent = () => {
   const dispatch = useDispatch();
@@ -22,12 +23,6 @@ const SliderComponent = () => {
   const [sliderValue, setSliderValue] = useState(0);
   const [showTooltip, setShowTooltip] = useState(false);
   const [max, setMax] = useState(100);
-
-  const convertAudioTimeToMinutesAndSeconds = (time: number) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time - minutes * 60);
-    return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
-  };
 
   useEffect(() => {
     const timer = setInterval(() => {

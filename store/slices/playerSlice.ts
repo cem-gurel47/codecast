@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import Podcast from "../../types/podcast";
 
 export interface PlayerState {
   id: string | null;
@@ -61,6 +62,14 @@ export const playerSlice = createSlice({
     setId: (state, action: PayloadAction<string>) => {
       state.id = action.payload;
     },
+    updatePodcast: (state, action: PayloadAction<Partial<Podcast>>) => {
+      state.id = action.payload.id;
+      state.title = action.payload.title_original;
+      state.podcast = action.payload.podcast.title_original;
+      state.podcastPictureUrl = action.payload.image;
+      state.audioUrl = action.payload.audio;
+      state.isPlaying = true;
+    },
   },
 });
 
@@ -76,6 +85,7 @@ export const {
   setPodcastPictureUrl,
   setTitle,
   setId,
+  updatePodcast,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

@@ -1,8 +1,9 @@
 import React from "react";
 import { Box, Text, Grid, GridItem } from "@chakra-ui/react";
 import PodcastCard from "./podcastCard";
+import Podcast from "../../types/podcast";
 
-const LatestReleases = () => {
+const LatestReleases = ({ latestReleases }: { latestReleases: Podcast[] }) => {
   return (
     <Box py={8} px={10} mx={-10} mt={10} bg="#FAFBFE">
       <Text fontWeight="medium" fontSize="xl" mb={2}>
@@ -13,24 +14,11 @@ const LatestReleases = () => {
         templateRows="repeat(3,1fr)"
         gap={6}
       >
-        <GridItem>
-          <PodcastCard />
-        </GridItem>
-        <GridItem>
-          <PodcastCard />
-        </GridItem>
-        <GridItem>
-          <PodcastCard />
-        </GridItem>
-        <GridItem>
-          <PodcastCard />
-        </GridItem>
-        <GridItem>
-          <PodcastCard />
-        </GridItem>
-        <GridItem>
-          <PodcastCard />
-        </GridItem>
+        {latestReleases.map((podcast) => (
+          <GridItem key={podcast.id}>
+            <PodcastCard podcast={podcast} />
+          </GridItem>
+        ))}
       </Grid>
     </Box>
   );

@@ -9,8 +9,6 @@ import {
 import Podcast from "../types/podcast";
 
 const Home = ({ data }: { data: Podcast[] }) => {
-  console.log(data);
-
   return (
     <Box
       w="full"
@@ -30,7 +28,7 @@ const Home = ({ data }: { data: Podcast[] }) => {
       </Head>
       <SearchInput />
       <Banner hottestPodcastOfTheWeek={data[0]} />
-      <LatestReleases />
+      <LatestReleases latestReleases={data.slice(1, 7)} />
       <RecommendedPodcasts />
     </Box>
   );
