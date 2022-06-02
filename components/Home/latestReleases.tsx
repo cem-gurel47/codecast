@@ -10,8 +10,24 @@ const LatestReleases = () => {
       </Text>
       <Grid
         templateColumns={{ base: "repeat(1,1fr)", md: "repeat(2,1fr)" }}
+        templateRows="repeat(3,1fr)"
         gap={6}
       >
+        <GridItem>
+          <PodcastCard />
+        </GridItem>
+        <GridItem>
+          <PodcastCard />
+        </GridItem>
+        <GridItem>
+          <PodcastCard />
+        </GridItem>
+        <GridItem>
+          <PodcastCard />
+        </GridItem>
+        <GridItem>
+          <PodcastCard />
+        </GridItem>
         <GridItem>
           <PodcastCard />
         </GridItem>

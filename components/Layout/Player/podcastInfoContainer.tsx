@@ -6,6 +6,7 @@ const PodcastInfoContainer = () => {
   const { podcastPictureUrl, artist, title } = useSelector(
     (state: RootState) => state.playerSlice
   );
+
   return (
     <Flex maxW={{ base: "full", md: 80 }} align="center">
       <Image

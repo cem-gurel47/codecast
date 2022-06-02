@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
     <Box width="100vw" height="100vh">
       <Sidebar />
       <Content>{children}</Content>
-      {audioUrl && <Player />}
+      <Player />
     </Box>
   );
 };

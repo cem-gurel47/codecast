@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface PlayerState {
+  id: string | null;
   isPlaying: boolean;
   isShuffling: boolean;
   isRepeating: boolean;
@@ -12,6 +13,7 @@ export interface PlayerState {
 }
 
 const initialState: PlayerState = {
+  id: null,
   isPlaying: false,
   isShuffling: false,
   isRepeating: false,
