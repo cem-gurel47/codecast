@@ -13,7 +13,7 @@ const TOPICS = [
   "PHP",
   "Vue",
   "Java",
-  "Cpp",
+  "C++",
 ];
 
 const Explore = () => {
@@ -36,7 +36,7 @@ const Explore = () => {
         />
       </Head>
       <SearchInput />
-      <SimpleGrid columns={[1, 2, 3]} spacing={10} mt={8}>
+      <SimpleGrid minChildWidth="300px" spacing={10} mt={8}>
         {TOPICS.map((topic) => (
           <ExploreTopicCard key={topic} topic={topic} />
         ))}

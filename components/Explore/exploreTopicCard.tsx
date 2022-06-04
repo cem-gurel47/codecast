@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Center, Text, Icon } from "@chakra-ui/react";
+import { Box, Text, Icon, Center } from "@chakra-ui/react";
 import {
   DiReact,
   DiJavascript,
@@ -45,7 +45,7 @@ const TOPIC_INFO = {
     bg: "orange",
     icon: DiJava,
   },
-  Cpp: {
+  "C++": {
     bg: "blue",
     icon: SiCplusplus,
   },
@@ -54,23 +54,36 @@ const TOPIC_INFO = {
 const ExploreTopicCard = ({ topic }: { topic: string }) => {
   return (
     <Box
-      minH="200px"
+      height="200px"
+      maxW="300px"
       role="group"
       p={6}
-      bgGradient={`linear(to-br,${TOPIC_INFO[topic].bg}.400,${TOPIC_INFO[topic].bg}.100)`}
       boxShadow="2xl"
+      bgGradient={`linear(to-br,${TOPIC_INFO[topic].bg}.500,${TOPIC_INFO[topic].bg}.100)`}
       rounded="lg"
       cursor="pointer"
       transition="all 0.2s ease-in-out"
       _hover={{
         transform: "scale(1.05)",
       }}
+      overflow="hidden"
     >
       <Text color="white" fontWeight="bold" fontSize="2xl">
         {topic}
       </Text>
-      <Center>
-        <Icon as={TOPIC_INFO[topic].icon} color="white" fontSize="8xl" />
+      <Center
+        transform="rotate(-60deg)"
+        mr="-130px"
+        p={2}
+        // bg="whiteAlpha.100"
+        bgGradient="linear(to-br,whiteAlpha.500,whiteAlpha.100)"
+      >
+        <Icon
+          transform="rotate(60deg)"
+          as={TOPIC_INFO[topic].icon}
+          color={`${TOPIC_INFO[topic].bg}.500`}
+          fontSize="8xl"
+        />
       </Center>
     </Box>
   );
