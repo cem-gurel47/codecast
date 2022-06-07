@@ -16,6 +16,7 @@
     "@emotion/styled": "^11.6.0",
     "@prisma/client": "^3.6.0",
     "@reduxjs/toolkit": "^1.8.2",
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "cookie": "^0.4.1",
     "cookies": "^0.8.0",

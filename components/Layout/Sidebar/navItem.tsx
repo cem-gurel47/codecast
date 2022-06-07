@@ -1,7 +1,8 @@
 import { ReactText } from "react";
 import { IconType } from "react-icons";
 import { useRouter } from "next/router";
-import { FlexProps, Link, Flex, Icon } from "@chakra-ui/react";
+import { FlexProps, Flex, Icon } from "@chakra-ui/react";
+import Link from "next/link";
 
 interface NavItemProps extends FlexProps {
   icon: IconType;
@@ -12,11 +13,7 @@ const NavItem = ({ icon, path, children, ...rest }: NavItemProps) => {
   const router = useRouter();
   const isActive = router.pathname === `/${path}`;
   return (
-    <Link
-      href={`/${path}`}
-      style={{ textDecoration: "none" }}
-      _focus={{ boxShadow: "none" }}
-    >
+    <Link href={`/${path}`} passHref>
       <Flex
         align="center"
         p="4"

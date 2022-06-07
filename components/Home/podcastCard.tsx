@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Flex, IconButton, Icon, Text } from "@chakra-ui/react";
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
-import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import Cookie from "js-cookie";
 import { RootState } from "../../store/store";
@@ -11,7 +10,7 @@ import Podcast from "../../types/podcast";
 import convertAudioTimeToMinutesAndSeconds from "../../utils/convertAudioTimeToMinutesAndSeconds";
 
 const PodcastCard = ({ podcast }: { podcast: Podcast }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+  // const [isFavorite, setIsFavorite] = useState(false);
   const dispatch = useDispatch();
   const { isPlaying, id } = useSelector(
     (state: RootState) => state.playerSlice
@@ -23,6 +22,7 @@ const PodcastCard = ({ podcast }: { podcast: Podcast }) => {
       borderRadius={10}
       bg="#fff"
       p={4}
+      boxShadow="base"
       justifyContent="space-between"
     >
       <Flex align="center">
@@ -68,7 +68,7 @@ const PodcastCard = ({ podcast }: { podcast: Podcast }) => {
         <Text ml={20}>
           {convertAudioTimeToMinutesAndSeconds(podcast.audio_length_sec)}
         </Text>
-        <IconButton
+        {/* <IconButton
           onClick={() => setIsFavorite(!isFavorite)}
           aria-label="add-to-favourites"
           ml={4}
@@ -81,7 +81,7 @@ const PodcastCard = ({ podcast }: { podcast: Podcast }) => {
               color="blue.300"
             />
           }
-        />
+        /> */}
       </Flex>
     </Flex>
   );

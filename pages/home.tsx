@@ -1,19 +1,19 @@
 import { Box } from "@chakra-ui/react";
 import Head from "next/head";
+import axios from "./api/axios";
 import {
-  SearchInput,
   Banner,
   LatestReleases,
   RecommendedPodcasts,
 } from "../components/Home";
-import Podcast from "../types/podcast";
+import Podcast, { BestPodcast } from "../types/podcast";
 
 const Home = ({
   data,
 }: {
   data: {
     data: Podcast[];
-    bestPodcasts: Podcast[];
+    bestPodcasts: BestPodcast[];
   };
 }) => {
   return (
@@ -21,7 +21,7 @@ const Home = ({
       w="full"
       h="full"
       px="10"
-      pt="5"
+      pt={16}
       pb={20}
       bgGradient="linear(to-br,red.400,red.100)"
       overflow="scroll"
@@ -33,7 +33,7 @@ const Home = ({
           content="Coding podcasts of the week | Codecast"
         />
       </Head>
-      <SearchInput />
+      {/* <SearchInput /> */}
       <Banner hottestPodcastOfTheWeek={data.data[0]} />
       <LatestReleases latestReleases={data.data.slice(1, 7)} />
       <RecommendedPodcasts
@@ -44,11 +44,10 @@ const Home = ({
 };
 
 export async function getServerSideProps() {
-  const res = await fetch("http://localhost:3000/api/home");
-  const data = await res.json();
+  const { data: items } = await axios.get("home");
   return {
     props: {
-      data,
+      data: items,
     },
   };
 }

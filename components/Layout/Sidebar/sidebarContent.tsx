@@ -10,8 +10,8 @@ import {
   FiHome,
   FiTrendingUp,
   FiCompass,
-  FiStar,
-  FiSettings,
+  // FiStar,
+  // FiSettings,
 } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
@@ -27,8 +27,8 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome },
   { name: "Trending", icon: FiTrendingUp },
   { name: "Explore", icon: FiCompass },
-  { name: "Favourites", icon: FiStar },
-  { name: "Settings", icon: FiSettings },
+  // { name: "Favourites", icon: FiStar },
+  // { name: "Settings", icon: FiSettings },
 ];
 
 interface SidebarProps extends BoxProps {

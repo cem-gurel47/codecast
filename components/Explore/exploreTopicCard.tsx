@@ -55,7 +55,6 @@ const ExploreTopicCard = ({ topic }: { topic: string }) => {
   return (
     <Box
       height="200px"
-      maxW="300px"
       role="group"
       p={6}
       boxShadow="2xl"
