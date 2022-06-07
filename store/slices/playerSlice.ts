@@ -1,25 +1,32 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import Podcast from "../../types/podcast";
 
 export interface PlayerState {
+  id: string | null;
   isPlaying: boolean;
   isShuffling: boolean;
   isRepeating: boolean;
   audioUrl: string;
-  artist: string;
+  podcast: string;
   title: string;
   podcastPictureUrl: string;
   volume: number;
+  currentTime: number;
+  duration: number;
 }
 
 const initialState: PlayerState = {
+  id: null,
   isPlaying: false,
   isShuffling: false,
   isRepeating: false,
   audioUrl: "",
-  artist: "Podcast Name Here",
-  title: "Artist Name Here",
-  podcastPictureUrl: "https://picsum.photos/200",
+  podcast: "",
+  title: "",
+  podcastPictureUrl: "",
   volume: 100,
+  currentTime: 0,
+  duration: 0,
 };
 
 export const playerSlice = createSlice({
@@ -47,6 +54,31 @@ export const playerSlice = createSlice({
     changeVolume: (state, action: PayloadAction<number>) => {
       state.volume = action.payload;
     },
+    setPodcastName: (state, action: PayloadAction<string>) => {
+      state.podcast = action.payload;
+    },
+    setPodcastPictureUrl: (state, action: PayloadAction<string>) => {
+      state.podcastPictureUrl = action.payload;
+    },
+    setTitle: (state, action: PayloadAction<string>) => {
+      state.title = action.payload;
+    },
+    setId: (state, action: PayloadAction<string>) => {
+      state.id = action.payload;
+    },
+    updatePodcast: (state, action: PayloadAction<Partial<Podcast>>) => {
+      state.id = action.payload.id;
+      state.title = action.payload.title_original;
+      state.podcast = action.payload.podcast.title_original;
+      state.podcastPictureUrl = action.payload.image;
+      state.audioUrl = action.payload.audio;
+      state.duration = action.payload.audio_length_sec;
+      state.currentTime = 0;
+      state.isPlaying = true;
+    },
+    setCurrentTime: (state, action: PayloadAction<number>) => {
+      state.currentTime = action.payload;
+    },
   },
 });
 
@@ -58,6 +90,12 @@ export const {
   togglePlay,
   setAudioUrl,
   changeVolume,
+  setPodcastName,
+  setPodcastPictureUrl,
+  setTitle,
+  setId,
+  updatePodcast,
+  setCurrentTime,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

@@ -1,19 +1,44 @@
 import React from "react";
 import { Box, Icon, Text, Button, Flex, IconButton } from "@chakra-ui/react";
-import { MdFavoriteBorder, MdOutlineShare } from "react-icons/md";
+import { MdOutlineShare } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { setAudioUrl, startPlaying } from "../../store/slices/playerSlice";
+import Cookie from "js-cookie";
+import { updatePodcast } from "../../store/slices/playerSlice";
+import Podcast from "../../types/podcast";
 
-const Banner = () => {
+const Banner = ({
+  hottestPodcastOfTheWeek,
+}: {
+  hottestPodcastOfTheWeek: Podcast;
+}) => {
   const dispatch = useDispatch();
+  const { audio, title_original, image, podcast, id, audio_length_sec } =
+    hottestPodcastOfTheWeek;
+
   const playHottesPodcastOfTheWeek = () => {
-    dispatch(
-      setAudioUrl(
-        "https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg"
-      )
+    Cookie.set(
+      "audio",
+      JSON.stringify({
+        audio,
+        title_original,
+        image,
+        podcast,
+        id,
+        audio_length_sec,
+      })
     );
-    dispatch(startPlaying());
+    dispatch(
+      updatePodcast({
+        audio,
+        title_original,
+        image,
+        podcast,
+        id,
+        audio_length_sec,
+      })
+    );
   };
+
   return (
     <Box mt={8} maxW={{ md: "3xl" }}>
       <Text
@@ -25,7 +50,8 @@ const Banner = () => {
         The hottest coding podcasts of the week.
       </Text>
       <Text color="white" my={8} fontSize="xl" fontWeight="thin">
-        Fresh music vibes for great mood full your day with energy and passion!
+        Fresh coding vibes for great mood to fill your day with energy and
+        passion!
       </Text>
       <Flex>
         <Button
@@ -36,7 +62,7 @@ const Banner = () => {
         >
           PLAY NOW
         </Button>
-        <IconButton
+        {/* <IconButton
           aria-label="add-to-favourites"
           ml={4}
           borderRadius={32}
@@ -44,7 +70,7 @@ const Banner = () => {
           border="1px solid white"
         >
           <Icon as={MdFavoriteBorder} color="white" />
-        </IconButton>
+        </IconButton> */}
         <IconButton
           aria-label="add-to-favourites"
           ml={4}

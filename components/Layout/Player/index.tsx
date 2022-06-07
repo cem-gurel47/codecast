@@ -1,9 +1,15 @@
 import { Grid, GridItem, Flex } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 import PodcastInfoContainer from "./podcastInfoContainer";
 import AudioInfoContainer from "./audioInfoContainer";
 import VolumeSlider from "./soundSlider";
+import { RootState } from "../../../store/store";
 
 const Player = () => {
+  const { podcast, podcastPictureUrl, title } = useSelector(
+    (state: RootState) => state.playerSlice
+  );
+
   return (
     <Grid
       templateColumns={{ base: "repeat(1,1fr)", md: "repeat(3, 1fr)" }}
@@ -19,7 +25,11 @@ const Player = () => {
       px={8}
     >
       <GridItem alignSelf="center" display={{ base: "none", md: "grid" }}>
-        <PodcastInfoContainer />
+        <PodcastInfoContainer
+          podcast={podcast}
+          podcastPictureUrl={podcastPictureUrl}
+          title={title}
+        />
       </GridItem>
       <GridItem alignSelf="center">
         <AudioInfoContainer />

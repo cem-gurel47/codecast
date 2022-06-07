@@ -1,16 +1,88 @@
 import React from "react";
-import { Flex, Image } from "@chakra-ui/react";
+import { Flex, IconButton, Icon, Text } from "@chakra-ui/react";
+import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
+import { useSelector, useDispatch } from "react-redux";
+import Cookie from "js-cookie";
+import { RootState } from "../../store/store";
+import { stopPlaying, updatePodcast } from "../../store/slices/playerSlice";
+import PodcastInfoContainer from "../Layout/Player/podcastInfoContainer";
+import Podcast from "../../types/podcast";
+import convertAudioTimeToMinutesAndSeconds from "../../utils/convertAudioTimeToMinutesAndSeconds";
 
-const PodcastCard = () => {
+const PodcastCard = ({ podcast }: { podcast: Podcast }) => {
+  // const [isFavorite, setIsFavorite] = useState(false);
+  const dispatch = useDispatch();
+  const { isPlaying, id } = useSelector(
+    (state: RootState) => state.playerSlice
+  );
+
   return (
-    <Flex align="center" borderRadius={6} bg="#fff" p={4}>
-      <Image
-        src="https://picsum.photos/200"
-        width="50px"
-        height="50px"
-        alt="podcast-image"
-        fit="cover"
-      />
+    <Flex
+      align="center"
+      borderRadius={10}
+      bg="#fff"
+      p={4}
+      boxShadow="base"
+      justifyContent="space-between"
+    >
+      <Flex align="center">
+        {isPlaying && id === podcast.id ? (
+          <IconButton
+            mr={4}
+            justifyContent="center"
+            alignItems="center"
+            variant="unstyled"
+            aria-label="pause"
+            icon={<Icon as={BsFillPauseFill} fontSize="40px" />}
+            onClick={() => dispatch(stopPlaying())}
+          />
+        ) : (
+          <IconButton
+            mr={4}
+            variant="unstyled"
+            aria-label="play"
+            icon={<Icon as={BsFillPlayFill} fontSize="40px" />}
+            onClick={() => {
+              dispatch(updatePodcast(podcast));
+              Cookie.set(
+                "audio",
+                JSON.stringify({
+                  audio: podcast.audio,
+                  title_original: podcast.title_original,
+                  image: podcast.image,
+                  podcast: podcast.podcast,
+                  id: podcast.id,
+                  audio_length_sec: podcast.audio_length_sec,
+                })
+              );
+            }}
+          />
+        )}
+        <PodcastInfoContainer
+          podcast={podcast.podcast.title_original}
+          podcastPictureUrl={podcast.image}
+          title={podcast.title_original}
+        />
+      </Flex>
+      <Flex align="center">
+        <Text ml={20}>
+          {convertAudioTimeToMinutesAndSeconds(podcast.audio_length_sec)}
+        </Text>
+        {/* <IconButton
+          onClick={() => setIsFavorite(!isFavorite)}
+          aria-label="add-to-favourites"
+          ml={4}
+          borderRadius={32}
+          bg="transparent"
+          border="1px solid white"
+          icon={
+            <Icon
+              as={isFavorite ? MdFavorite : MdFavoriteBorder}
+              color="blue.300"
+            />
+          }
+        /> */}
+      </Flex>
     </Flex>
   );
 };
