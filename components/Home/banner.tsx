@@ -1,6 +1,5 @@
 import React from "react";
-import { Box, Icon, Text, Button, Flex, IconButton } from "@chakra-ui/react";
-import { MdOutlineShare } from "react-icons/md";
+import { Box, Text, Button, Flex } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import Cookie from "js-cookie";
 import { updatePodcast } from "../../store/slices/playerSlice";
@@ -71,7 +70,7 @@ const Banner = ({
         >
           <Icon as={MdFavoriteBorder} color="white" />
         </IconButton> */}
-        <IconButton
+        {/* <IconButton
           aria-label="add-to-favourites"
           ml={4}
           borderRadius={32}
@@ -79,7 +78,7 @@ const Banner = ({
           border="1px solid white"
         >
           <Icon as={MdOutlineShare} color="white" />
-        </IconButton>
+        </IconButton> */}
       </Flex>
     </Box>
   );

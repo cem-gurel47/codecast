@@ -16,6 +16,7 @@ import convertAudioTimeToMinutesAndSeconds from "../../../utils/convertAudioTime
 
 const SliderComponent = () => {
   const dispatch = useDispatch();
+  const [isAudioReady, setIsAudioReady] = useState(false);
   const { isPlaying, isRepeating, audioUrl, volume, currentTime, duration } =
     useSelector((state: RootState) => state.playerSlice);
   const audioRef = useRef(typeof window !== "undefined" && new Audio());
@@ -23,13 +24,15 @@ const SliderComponent = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (isPlaying) {
-        if (currentTime < Math.floor(duration)) {
-          dispatch(setCurrentTime(currentTime + 1));
-        } else {
-          dispatch(setCurrentTime(duration));
-          if (!isRepeating) {
-            dispatch(stopPlaying());
+      if (audioRef.current && isAudioReady) {
+        if (isPlaying) {
+          if (currentTime < Math.floor(duration)) {
+            dispatch(setCurrentTime(currentTime + 1));
+          } else {
+            dispatch(setCurrentTime(duration));
+            if (!isRepeating) {
+              dispatch(stopPlaying());
+            }
           }
         }
       }
@@ -37,7 +40,7 @@ const SliderComponent = () => {
 
     return () => clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, isPlaying, isRepeating, currentTime]);
+  }, [dispatch, isPlaying, isRepeating, currentTime, audioRef, isAudioReady]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -46,14 +49,14 @@ const SliderComponent = () => {
   }, [volume]);
 
   useEffect(() => {
-    if (audioRef.current) {
+    if (audioRef.current && isAudioReady) {
       if (isPlaying) {
         audioRef.current.play();
       } else {
         audioRef.current.pause();
       }
     }
-  }, [isPlaying]);
+  }, [isPlaying, audioRef, isAudioReady]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -67,6 +70,14 @@ const SliderComponent = () => {
       dispatch(setCurrentTime(0));
     }
   }, [currentTime, dispatch, duration]);
+
+  useEffect(() => {
+    if (audioRef.current && audioRef.current.readyState > 0) {
+      setIsAudioReady(true);
+    } else {
+      setIsAudioReady(false);
+    }
+  }, [audioRef, audioUrl]);
 
   const sliderThumb = () => {
     return (
@@ -104,7 +115,14 @@ const SliderComponent = () => {
       >
         {sliderThumb()}
       </Tooltip>
-      <audio preload="metadata" src={audioUrl} ref={audioRef} />
+      <audio
+        preload="metadata"
+        src={audioUrl}
+        ref={audioRef}
+        onLoadedData={() => {
+          setIsAudioReady(true);
+        }}
+      />
     </Slider>
   );
 };

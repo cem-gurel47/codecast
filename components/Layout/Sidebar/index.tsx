@@ -9,7 +9,7 @@ const SimpleSidebar = () => {
   return (
     <Box height="100vh" display="inline">
       <SidebarContent
-        onClose={() => onClose}
+        onClose={onClose}
         display={{ base: "none", md: "block" }}
       />
       <Drawer

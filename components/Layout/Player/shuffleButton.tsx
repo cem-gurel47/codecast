@@ -10,6 +10,7 @@ const ShuffleButton = () => {
 
   return (
     <IconButton
+      disabled
       mr={4}
       display="flex"
       alignItems="center"

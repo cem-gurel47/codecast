@@ -1,12 +1,26 @@
 import { IconButton, Icon } from "@chakra-ui/react";
 import { BsFillSkipBackwardFill, BsFillSkipForwardFill } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+import { setCurrentTime } from "../../../store/slices/playerSlice";
 
 const PrevNextButton = ({ type }) => {
+  const dispatch = useDispatch();
+  const { currentTime, duration } = useSelector(
+    (state: RootState) => state.playerSlice
+  );
   return (
     <IconButton
+      disabled
       display="flex"
       alignItems="center"
-      // onClick={() => setIsRepeating(!isRepeating)}
+      onClick={() => {
+        if (type === "prev") {
+          dispatch(setCurrentTime(Math.max(0, currentTime - 10)));
+        } else {
+          dispatch(setCurrentTime(Math.min(duration, currentTime + 10)));
+        }
+      }}
       variant="unstyled"
       aria-label="shuffle"
       icon={

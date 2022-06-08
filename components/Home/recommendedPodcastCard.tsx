@@ -18,8 +18,8 @@ const RecommendedPodcastCard = ({ info }: { info: BestPodcast }) => {
         <Image
           src={info.image}
           alt="recommended-podcast"
-          width="200px"
-          height="200px"
+          width="100%"
+          height="auto"
           objectFit="cover"
           borderRadius={32}
         />
