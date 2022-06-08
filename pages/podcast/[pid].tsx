@@ -40,7 +40,7 @@ const PodcastPage = ({ data }: { data: PodcastInfo }) => {
         <Flex>
           <Image
             rounded="xl"
-            alt="podcast image"
+            alt="product image"
             src={data.thumbnail}
             fit="cover"
             align="center"
