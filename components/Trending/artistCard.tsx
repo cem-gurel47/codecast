@@ -28,6 +28,7 @@ const artistCard = ({ artist }: { artist: Artist }) => {
       }}
     >
       <Image
+        loading="lazy"
         rounded="full"
         src={visuals.avatarImage?.sources[0].url}
         alt={profile.name}

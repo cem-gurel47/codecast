@@ -39,10 +39,10 @@ const Banner = ({
   };
 
   return (
-    <Box mt={8} maxW={{ md: "3xl" }}>
+    <Box maxW={{ md: "3xl" }}>
       <Text
         color="white"
-        fontSize="7xl"
+        fontSize={{ base: "5xl", md: "4xl", lg: "7xl" }}
         fontWeight="medium"
         lineHeight="shorter"
       >

@@ -22,8 +22,8 @@ const PodcastPage = ({ data }: { data: PodcastInfo }) => {
     <Box
       w="full"
       h="full"
-      px="10"
-      pt="20"
+      px={{ base: 5, md: 10 }}
+      pt={{ base: 5, md: 10 }}
       pb={20}
       bgGradient="linear(to-br,blue.600,blue.100)"
       overflow="scroll"
@@ -35,12 +35,12 @@ const PodcastPage = ({ data }: { data: PodcastInfo }) => {
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacing={{ base: 8, md: 10 }}
-        pb={10}
+        pb={{ base: 5, md: 10 }}
       >
         <Flex>
           <Image
             rounded="xl"
-            alt="product image"
+            alt="podcast image"
             src={data.thumbnail}
             fit="cover"
             align="center"
@@ -83,8 +83,8 @@ const PodcastPage = ({ data }: { data: PodcastInfo }) => {
         spacing={{ base: 8, md: 10 }}
         borderTop="2px solid orange"
         bg="#FAFBFE"
-        mx={-10}
-        p={10}
+        mx={{ base: -5, md: -10 }}
+        p={{ base: 5, md: 10 }}
         mb={-20}
         pb={40}
       >

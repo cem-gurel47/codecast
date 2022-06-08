@@ -5,7 +5,13 @@ import Podcast from "../../types/podcast";
 
 const LatestReleases = ({ latestReleases }: { latestReleases: Podcast[] }) => {
   return (
-    <Box py={8} px={10} mx={-10} mt={10} bg="#FAFBFE">
+    <Box
+      py={8}
+      px={{ base: 5, md: 10 }}
+      mx={{ base: -5, md: -10 }}
+      mt={10}
+      bg="#FAFBFE"
+    >
       <Text fontWeight="medium" fontSize="xl" mb={2}>
         Latest releases
       </Text>

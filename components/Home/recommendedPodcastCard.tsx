@@ -16,6 +16,7 @@ const RecommendedPodcastCard = ({ info }: { info: BestPodcast }) => {
         position="relative"
       >
         <Image
+          loading="lazy"
           src={info.image}
           alt="recommended-podcast"
           width="100%"

@@ -8,13 +8,15 @@ interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactText;
   path: string;
+  onClose: () => void;
 }
-const NavItem = ({ icon, path, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, path, children, onClose, ...rest }: NavItemProps) => {
   const router = useRouter();
   const isActive = router.pathname.includes(path);
   return (
     <Link href={`/${path}`} passHref>
       <Flex
+        onClick={onClose}
         align="center"
         p="4"
         mx="4"

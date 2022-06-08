@@ -16,7 +16,13 @@ const trending = (props) => {
           content="Trending coding podcasts of the week | Codecast"
         />
       </Head>
-      <Box p={10} pb={0} bgGradient="linear(to-br,purple.400,purple.100)">
+      <Box
+        w="full"
+        h="full"
+        px={{ base: 5, md: 10 }}
+        pt={{ base: 5, md: 16 }}
+        bgGradient="linear(to-br,purple.400,purple.100)"
+      >
         <Artists artists={props.data.artists.items} />
         <Podcasts podcasts={props.data.podcasts.items} />
         <Episodes episodes={props.data.episodes.items} />

@@ -33,7 +33,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         icon={<FiMenu />}
         position="absolute"
         top="5"
-        left="50"
+        left="5"
       />
       <Logo />
     </Flex>

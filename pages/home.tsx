@@ -20,11 +20,10 @@ const Home = ({
     <Box
       w="full"
       h="full"
-      px="10"
-      pt={16}
+      px={{ base: 5, md: 10 }}
+      pt={{ base: 5, md: 16 }}
       pb={20}
       bgGradient="linear(to-br,red.400,red.100)"
-      overflow="scroll"
     >
       <Head>
         <title>Home | Codecast</title>

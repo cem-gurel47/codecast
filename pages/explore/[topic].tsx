@@ -56,7 +56,10 @@ const Topic = (props) => {
 
   return (
     <Box
-      p={10}
+      w="full"
+      h="full"
+      px={{ base: 5, md: 10 }}
+      pt={{ base: 5, md: 16 }}
       bgGradient={`linear(to-br,${topicColor}.400,${topicColor}.100)`}
     >
       <Head>

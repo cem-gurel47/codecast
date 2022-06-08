@@ -26,6 +26,7 @@ const episodeCard = ({ episode }: { episode: Episode }) => {
       onClick={convertPodcastUriToUrl}
     >
       <Image
+        loading="lazy"
         src={coverArt?.sources[1]?.url}
         alt={name}
         w="100%"

@@ -9,7 +9,14 @@ const RecommendedPodcasts = ({
   recommendedPodcasts: BestPodcast[];
 }) => {
   return (
-    <Box py={8} px={10} mx={-10} pb={40} mb={-20} bg="#FAFBFE">
+    <Box
+      py={8}
+      px={{ base: 5, md: 10 }}
+      mx={{ base: -5, md: -10 }}
+      pb={{ base: 28, md: 40 }}
+      mb={-20}
+      bg="#FAFBFE"
+    >
       <Text fontWeight="medium" fontSize="xl" mb={2}>
         Recommended podcasts
       </Text>

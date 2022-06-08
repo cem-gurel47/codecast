@@ -11,7 +11,13 @@ const Episodes = ({
   podcast: string;
 }) => {
   return (
-    <Box py={8} pl={10} mx={-10} mt={10} bg="#FAFBFE">
+    <Box
+      py={8}
+      pl={{ base: 5, md: 10 }}
+      mx={{ base: -5, md: -10 }}
+      mt={10}
+      bg="#FAFBFE"
+    >
       <Text fontWeight="medium" fontSize="xl" mb={2}>
         Episodes
       </Text>

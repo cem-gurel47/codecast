@@ -5,7 +5,12 @@ import PodcastCard from "./podcastCard";
 
 const Podcasts = ({ podcasts }: { podcasts: SpotifyPodcast[] }) => {
   return (
-    <Box p={10} mx={-10} bg="primary">
+    <Box
+      px={{ base: 5, md: 10 }}
+      mx={{ base: -5, md: -10 }}
+      pt={{ base: 10, md: 10 }}
+      bg="primary"
+    >
       <Text fontWeight="medium" fontSize="xl" color="white">
         Podcasts
       </Text>
@@ -14,8 +19,8 @@ const Podcasts = ({ podcasts }: { podcasts: SpotifyPodcast[] }) => {
         templateRows="repeat(1,1fr)"
         overflowX="scroll"
         gap={6}
-        mx={-10}
-        p={10}
+        mx={{ base: -5, md: -10 }}
+        p={{ base: 5, md: 10 }}
         pt={4}
       >
         {podcasts.map((podcast) => (

@@ -5,7 +5,7 @@ import ArtistCard from "./artistCard";
 
 const Artists = ({ artists }: { artists: Artist[] }) => {
   return (
-    <Box px={10} mx={-10}>
+    <Box px={{ base: 5, md: 10 }} mx={{ base: -5, md: -10 }}>
       <Text fontWeight="medium" fontSize="xl" color="white">
         Artists
       </Text>
@@ -14,8 +14,8 @@ const Artists = ({ artists }: { artists: Artist[] }) => {
         templateRows="repeat(1,1fr)"
         overflowX="scroll"
         gap={6}
-        mx={-10}
-        p={10}
+        mx={{ base: -5, md: -10 }}
+        p={{ base: 5, md: 10 }}
         pt={4}
       >
         {artists.map((artist) => (
