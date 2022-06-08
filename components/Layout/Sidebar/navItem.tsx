@@ -11,7 +11,7 @@ interface NavItemProps extends FlexProps {
 }
 const NavItem = ({ icon, path, children, ...rest }: NavItemProps) => {
   const router = useRouter();
-  const isActive = router.pathname === `/${path}`;
+  const isActive = router.pathname.includes(path);
   return (
     <Link href={`/${path}`} passHref>
       <Flex
