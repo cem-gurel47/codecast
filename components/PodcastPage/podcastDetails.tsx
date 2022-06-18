@@ -12,7 +12,7 @@ import { PodcastInfo } from "../../types/podcast";
 const PodcastDetails = ({ data }: { data: PodcastInfo }) => {
   const { total_episodes, email, publisher, looking_for } = data;
   return (
-    <Box>
+    <Box mb={20}>
       <Text
         fontSize={{ base: "16px", lg: "18px" }}
         color={useColorModeValue("yellow.500", "yellow.300")}
