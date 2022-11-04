@@ -1,5 +1,6 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { Provider } from "react-redux";
+import Script from "next/script";
 import PlayerLayout from "../components/Layout/layout";
 import { store } from "../store/store";
 import "reset-css";
@@ -38,6 +39,13 @@ const MyApp = ({ Component, pageProps }) => {
     <ChakraProvider theme={theme}>
       <Provider store={store}>
         <PlayerLayout>
+          <Script
+            id="Adsense-id"
+            data-ad-client="ca-pub-2228495892288218"
+            async
+            strategy="afterInteractive"
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          />
           <Component {...pageProps} />
         </PlayerLayout>
       </Provider>
