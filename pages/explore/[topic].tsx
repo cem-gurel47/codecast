@@ -1,4 +1,3 @@
-import React from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { Box } from "@chakra-ui/react";
@@ -6,6 +5,7 @@ import axios from "axios";
 import Artists from "../../components/Trending/artists";
 import Podcasts from "../../components/Trending/podcasts";
 import Episodes from "../../components/Trending/episodes";
+import { TOPICS } from "./index";
 
 const TOPIC_COLORS = {
   javascript: {
@@ -76,15 +76,43 @@ const Topic = (props) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const { topic } = context.query;
-  const { data: result } = await axios.get("explore", {
+export async function getStaticProps(context) {
+  const { topic } = context.params;
+
+  const options = {
+    method: "GET",
+    url: "https://spotify23.p.rapidapi.com/search/",
     params: {
-      topic,
+      q: topic,
+      type: "multi",
+      offset: "0",
+      limit: "10",
+      numberOfTopResults: "5",
     },
-  });
+    headers: {
+      "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
+      "X-RapidAPI-Key": "99ce66d5dfmsha436ab19abf2a98p159b14jsnf42294d312e6",
+    },
+  };
+  const { data } = await axios.request(options);
   return {
-    props: result,
+    props: {
+      data,
+    },
+    revalidate: 60 * 60 * 24,
+  };
+}
+
+export async function getStaticPaths() {
+  const paths = TOPICS.map((topic) => ({
+    params: {
+      topic: topic.toLocaleLowerCase("en-US"),
+    },
+  }));
+
+  return {
+    paths,
+    fallback: false,
   };
 }
 

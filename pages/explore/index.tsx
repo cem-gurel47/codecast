@@ -1,9 +1,8 @@
-import React from "react";
 import Head from "next/head";
 import { Box, SimpleGrid } from "@chakra-ui/react";
 import ExploreTopicCard from "../../components/Explore/exploreTopicCard";
 
-const TOPICS = [
+export const TOPICS = [
   "JavaScript",
   "React",
   "AWS",
