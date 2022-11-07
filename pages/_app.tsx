@@ -1,6 +1,7 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { Provider } from "react-redux";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
 import PlayerLayout from "../components/Layout/layout";
 import { store } from "../store/store";
 import "reset-css";
@@ -47,6 +48,7 @@ const MyApp = ({ Component, pageProps }) => {
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
           />
           <Component {...pageProps} />
+          <Analytics />
         </PlayerLayout>
       </Provider>
     </ChakraProvider>
