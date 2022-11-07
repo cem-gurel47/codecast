@@ -1,12 +1,12 @@
 import { Box } from "@chakra-ui/react";
 import Head from "next/head";
-import axios from "./api/axios";
 import {
   Banner,
   LatestReleases,
   RecommendedPodcasts,
 } from "../components/Home";
 import Podcast, { BestPodcast } from "../types/podcast";
+import client from "./api/client";
 
 const Home = ({
   data,
@@ -42,12 +42,32 @@ const Home = ({
   );
 };
 
-export async function getServerSideProps() {
-  const { data: items } = await axios.get("home");
+export async function getStaticProps() {
+  const result = await client.search({
+    q: "javascript",
+    sort_by_date: 0,
+    type: "episode",
+    offset: 0,
+    published_before: 1580172454000,
+    published_after: 0,
+    only_in: "title,description",
+    language: "English",
+    safe_mode: 0,
+  });
+
+  const bestPodcasts = await client.fetchBestPodcasts({
+    genre_id: 143,
+    sort: "listen_score",
+  });
   return {
     props: {
-      data: items,
+      data: {
+        data: result.data.results,
+        bestPodcasts: bestPodcasts.data.podcasts,
+      },
     },
+    // should regenerate the page every 24 hours
+    revalidate: 60 * 60 * 24,
   };
 }
 
