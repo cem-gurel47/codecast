@@ -11,11 +11,11 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import Head from "next/head";
-import axios from "../api/axios";
 import ExternalLinks from "../../components/PodcastPage/externalLinks";
 import PodcastDetails from "../../components/PodcastPage/podcastDetails";
 import Episodes from "../../components/PodcastPage/episodes";
 import { PodcastInfo } from "../../types/podcast";
+import client from "../api/client";
 
 const PodcastPage = ({ data }: { data: PodcastInfo }) => {
   return (
@@ -95,17 +95,37 @@ const PodcastPage = ({ data }: { data: PodcastInfo }) => {
   );
 };
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const { pid } = context.params;
-  const { data } = await axios.get("/podcast", {
-    params: {
-      pid,
-    },
+  const { data } = await client.fetchPodcastById({
+    id: pid,
   });
+  // const { data } = await axios.get("/podcast", {
+  //   params: {
+  //     pid,
+  //   },
+  // });
   return {
     props: {
       data,
     },
+    revalidate: 60 * 60 * 24,
+  };
+}
+
+export async function getStaticPaths() {
+  const { data } = await client.fetchBestPodcasts({
+    genre_id: 143,
+    sort: "listen_score",
+  });
+
+  const paths = data.podcasts.map((podcast) => ({
+    params: { pid: podcast.id },
+  }));
+
+  return {
+    paths,
+    fallback: false,
   };
 }
 

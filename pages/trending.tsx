@@ -1,4 +1,3 @@
-import React from "react";
 import Head from "next/head";
 import axios from "axios";
 import { Box } from "@chakra-ui/react";
@@ -31,12 +30,28 @@ const trending = (props) => {
   );
 };
 
-export async function getServerSideProps() {
-  const { data: result } = await axios.get("trending");
+export async function getStaticProps() {
+  const options = {
+    method: "GET",
+    url: "https://spotify23.p.rapidapi.com/search/",
+    params: {
+      q: "coding,programming",
+      type: "multi",
+      offset: "0",
+      limit: "10",
+      numberOfTopResults: "5",
+    },
+    headers: {
+      "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
+      "X-RapidAPI-Key": "99ce66d5dfmsha436ab19abf2a98p159b14jsnf42294d312e6",
+    },
+  };
+  const { data } = await axios.request(options);
   return {
     props: {
-      data: result.data,
+      data,
     },
+    revalidate: 60 * 60 * 24,
   };
 }
 

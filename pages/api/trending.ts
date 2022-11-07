@@ -21,9 +21,16 @@ export default async function handler(
     },
   };
 
-  axios.request(options).then((response) => {
-    res.status(200).send({
-      data: response.data,
+  axios
+    .request(options)
+    .then((response) => {
+      res.status(200).send({
+        data: response.data,
+      });
+    })
+    .catch((error) => {
+      res.status(500).send({
+        error,
+      });
     });
-  });
 }
