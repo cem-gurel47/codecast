@@ -62,8 +62,8 @@ export async function getStaticProps() {
   return {
     props: {
       data: {
-        data: result,
-        bestPodcasts,
+        data: result.data.results,
+        bestPodcasts: bestPodcasts.data.podcasts,
       },
     },
     // should regenerate the page every 24 hours
